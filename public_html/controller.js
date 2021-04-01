@@ -1,17 +1,24 @@
 
-
-function getHolaRoss(){
-     var objXMLHttpRequest = new XMLHttpRequest();
-    objXMLHttpRequest.onreadystatechange = function () {
-        if (objXMLHttpRequest.readyState === 4) {
-            if (objXMLHttpRequest.status === 200) {
-                response = JSON.parse(objXMLHttpRequest.responseText);
-                $("#contenido").html(response[0].hola);
-            } else {
-                alert('Error Code: ' + objXMLHttpRequest.status);
-            }
-        }
-    };
-    objXMLHttpRequest.open('GET', 'http://localhost/Tours/?p=holaRoss');
-    objXMLHttpRequest.send();
+function SearchTour(){
+    var parametros = {
+                "p": "SearchTour",
+                "search" : "anibal",
+                "date1" : "2021-02-03",
+                "date2" : "2021-02-04"
+        };
+        
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                      r = JSON.parse(response);
+                      alert(r[0].nombre);
+                }
+        });
+        
 }
