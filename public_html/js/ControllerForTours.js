@@ -22,10 +22,41 @@ function SearchTour(){
         
 }
 
+function RenderGourpTours(r){
+    var html = "";
+     r.forEach(t =>
+       html += "<div class='col-md-5 col-xl-3'>"+
+              "<article class='event-default-wrap'>"+
+                "<div class='event-default'>"+
+                  "<div id='tid"+t.id+"'></div>"+
+                  "<div class='event-default-caption'><a class='button button-xs button-secondary button-nina' href='#'>learn more</a></div>"+
+                "</div>"+
+                "<div class='event-default-inner'>"+
+                " <h5><a class='event-default-title' href='#'>"+t.nombre+"</a></h5><span class='heading-5'>"+t.precio+"</span>"+
+                "</div>"+
+                "<div class='ec-stars-wrapper'>"+
+                "<div class='row ml-0'>Duración: "+t.duracion+"</div>"+
+                "<div id='star"+t.id+"'></div>"+
+	    "</div>"+
+              "</article>"+
+            "</div>"
+      );
+      
+      $("#tourviewgrup").html(html);
+      
+      r.forEach(t =>
+      GetDatosTorP(t)
+      ); 
+}
 
-function GetImgsTour(id){
+function GetDatosTorP(t){
+    GetImgPTour(t.id);
+    GetStarsPTour(t.id);
+}
+
+function GetImgPTour(id){
     var parametros = {
-                "p": "ImgsTour",
+                "p": "ImgPTour",
                 "id" : id
         };
         
@@ -39,32 +70,38 @@ function GetImgsTour(id){
                 },
                 success:  function (response) {
                       r = JSON.parse(response);
-                      $("#contenido").html("<img src='"+r[0].img+"' width='600' height='338' alt='playa_blanca'/>");
+                $("#tid"+id+"").html("<figure class='event-default-image'><img class='img-mod1' src='"+r.img+"'/></figure>");
+             
                       
                 }
         });
         
 }
 
-
-function RenderGourpTours(r){
-    var html = "";
-     r.forEach(t =>
-       html += "<div class='col-md-6 col-xl-4'>"+
-              "<article class='event-default-wrap'>"+
-                "<div class='event-default'>"+
-                  "<figure class='event-default-image'><img src='images/landing-private-airlines-01-570x370.jpg' alt=' width= 570 height= 370'/>"+
-                  "</figure>"+
-                  "<div class='event-default-caption'><a class='button button-xs button-secondary button-nina' href='#'>learn more</a></div>"+
-                "</div>"+
-                "<div class='event-default-inner'>"+
-                 " <h5><a class='event-default-title' href='#'>France, Paris</a></h5><span class='heading-5'>from $280</span>"+
-                "</div>"+
-              "</article"+
-            "</div>"
-      );
-      
-      $("#tourviewgrup").html(html);
+function GetStarsPTour(id){
+    var parametros = {
+                "p": "StarPTour",
+                "id" : id
+        };
+        
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                r = JSON.parse(response);
+                calificacion = r.stars/r.cantidad; 
+                var cod = "<span class='mr-1' >Opiniones: "+r.cantidad+"</span>";
+                for (var i = 1; i < calificacion; i++) {
+                  cod += "<i class='float-right' style='color:#ffa900;' >&#9733;</i>";
+                }
+                $("#star"+id+"").html(cod);
+                 
+                }
+        });
 }
-
 
