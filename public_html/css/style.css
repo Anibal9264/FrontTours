@@ -18044,3 +18044,26 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
     width: 308px;
     height: 197px;
 }
+
+.imgCarrusel{
+    height: 450px;
+    width: 100%; 
+}
+
+@media (min-width: 320px){
+.mt-sm-6 {
+    margin-top: 4rem !important;
+}
+}
+
+@media (min-width: 992px){
+.mt-sm-6 {
+    margin-top: 0rem !important;
+}
+}
+
+.detalle-tour{
+    font-size: 12pt;
+    font-family: "Constantia", serif;
+    color: black;
+}

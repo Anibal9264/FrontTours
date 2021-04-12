@@ -1,9 +1,9 @@
 function SearchTour(){
     var parametros = {
                 "p": "SearchTour",
-                "search" : "",
-                "date1" : "2021-02-03",
-                "date2" : "2021-02-04"
+                "search": $("#busqueda").val(),
+                "date1" : $("#Ida").val(),
+                "date2" : $("#Vuelta").val()
         };
         
         
@@ -17,7 +17,7 @@ function SearchTour(){
                 success:  function (response) {
                       r = JSON.parse(response);
                       RenderGourpTours(r);
-                }
+                 }
         });
         
 }
@@ -29,10 +29,10 @@ function RenderGourpTours(r){
               "<article class='event-default-wrap'>"+
                 "<div class='event-default'>"+
                   "<div id='tid"+t.id+"'></div>"+
-                  "<div class='event-default-caption'><a class='button button-xs button-secondary button-nina' href='#'>learn more</a></div>"+
+                  "<div class='event-default-caption'><a class='button button-xs button-secondary button-nina' href='tour.html?t="+t.id+"'>Ver Mas</a></div>"+
                 "</div>"+
                 "<div class='event-default-inner'>"+
-                " <h5><a class='event-default-title' href='#'>"+t.nombre+"</a></h5><span class='heading-5'>"+t.precio+"</span>"+
+                " <h5><a class='event-default-title' href='#'>"+t.nombre+"</a></h5><span class='heading-5'>₡ "+t.precio+"</span>"+
                 "</div>"+
                 "<div class='ec-stars-wrapper'>"+
                 "<div class='row ml-0'>Duración: "+t.duracion+"</div>"+
@@ -46,7 +46,7 @@ function RenderGourpTours(r){
       
       r.forEach(t =>
       GetDatosTorP(t)
-      ); 
+      );
 }
 
 function GetDatosTorP(t){
@@ -105,3 +105,9 @@ function GetStarsPTour(id){
         });
 }
 
+$("#buscar").on("click", function(){
+    var posicion = $("#tourviewgrup").offset().top;
+    $("html, body").animate({
+        scrollTop: posicion
+    }, 2000); 
+});
