@@ -80,7 +80,7 @@ function GetImgPTour(id){
 
 function GetStarsPTour(id){
     var parametros = {
-                "p": "StarPTour",
+                "p": "StarsTour",
                 "id" : id
         };
         
@@ -111,3 +111,73 @@ $("#buscar").on("click", function(){
         scrollTop: posicion
     }, 2000); 
 });
+
+
+function GetTour(){
+   var valor = obtenerValorParametro('t'); 
+    var parametros = {
+                "p": "GetTour",
+                "id": valor,       
+        };
+        
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                      r = JSON.parse(response);
+                      renderImagenesTour(r.imgs);
+                      renderDetallesTour(r.tour);
+                 }
+        });
+        
+}
+
+function renderImagenesTour(imgs){
+  var html = "<ol id='carousel' class='carousel-indicators'>";
+    for (var i = 0; i < imgs.length; i++) {
+         if(i==0)html += "<li data-target='#carousel' data-slide-to='0' class='active'></li>";
+         else html += "<li data-target='#carousel' data-slide-to="+i+"></li>";
+    }
+    html += "</ol> <div class='carousel-inner'>";
+    for (var i = 0; i < imgs.length; i++) {
+        if(i==0){
+        html += "<div class='carousel-item active'>"+
+        "<img class='imgCarrusel' src='"+imgs[i].img+"'>"+
+        "</div>";
+        }else{
+        html += "<div class='carousel-item'>"+
+        "<img class='imgCarrusel' src='"+imgs[i].img+"'>"+
+        "</div>";
+        }
+        }
+ 
+    html += "</div>"+
+  "<a class='carousel-control-prev' href='#carousel' role='button' data-slide='prev'>"+
+    "<span class='carousel-control-prev-icon' aria-hidden='true'></span>"+
+    "<span class='sr-only'>Previous</span>"+
+  "</a>"+
+  "<a class='carousel-control-next' href='#carousel' role='button' data-slide='next'>"+
+    "<span class='carousel-control-next-icon' aria-hidden='true'></span>"+
+    "<span class='sr-only'>Next</span>"+
+  "</a>";
+  
+  $("#carousel").html(html);
+}
+
+
+function obtenerValorParametro(sParametroNombre) {
+var sPaginaURL = window.location.search.substring(1);
+ var sURLVariables = sPaginaURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++) {
+    var sParametro = sURLVariables[i].split('=');
+    if (sParametro[0] == sParametroNombre) {
+      return sParametro[1];
+    }
+  }
+ return null;
+}

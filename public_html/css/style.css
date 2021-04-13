@@ -18045,14 +18045,34 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
     height: 197px;
 }
 
-.imgCarrusel{
-    height: 450px;
-    width: 100%; 
-}
-
 @media (min-width: 320px){
 .mt-sm-6 {
     margin-top: 4rem !important;
+}
+.imgCarrusel{
+    height: 250px;
+    width: 500px; 
+}
+}
+
+@media(min-width: 425px){
+.imgCarrusel{
+    height: 300px;
+    width: 700px; 
+}
+}
+
+@media(min-width: 700px){
+.imgCarrusel{
+    height: 350px;
+    width: 1000px; 
+}
+}
+
+@media(min-width: 850px){
+.imgCarrusel{
+    height: 450px;
+    width: 1000px; 
 }
 }
 
