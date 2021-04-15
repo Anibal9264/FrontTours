@@ -108,7 +108,9 @@ function RenderGourpTours(r){
               "<article class='event-default-wrap'>"+
                 "<div class='event-default'>"+
                   "<div id='tid"+t.id+"'></div>"+
-                  "<div class='event-default-caption'><a class='button button-xs button-secondary button-nina' href='tour.html?t="+t.id+"'>Ver Mas</a></div>"+
+                  "<div class='event-default-caption'>"+
+           "<a class='button button-xs button-secondary button-nina' href='tour.html?t="+t.id+"'>Ver Mas</a>"+
+                "</div>"+
                 "</div>"+
                 "<div class='event-default-inner'>"+
                 " <h5><a class='event-default-title' href='#'>"+t.nombre+"</a></h5><span class='heading-5'>₡ "+t.precio+"</span>"+
@@ -149,7 +151,10 @@ function GetImgPTour(id){
                 },
                 success:  function (response) {
                       r = JSON.parse(response);
-                $("#tid"+id+"").html("<figure class='event-default-image'><img class='img-mod1' src='"+r.img+"'/></figure>");
+                $("#tid"+id+"").html("<figure class='event-default-image'>"+
+                        "<a href='#'><i style='position: absolute; right: 15px; bottom: 160px;' class='far fa-heart'></i></a>"+
+                        "<img class='img-mod1' src='"+r.img+"'/>"+
+                        "</figure>");
              
                       
                 }
@@ -390,7 +395,7 @@ function renderAllComent(res){
 function renderPersona(user,coment){
     var parametros = {
                 "p": "GetUser",
-                "id": user,       
+                "id": user      
         };
         
         $.ajax({
@@ -406,6 +411,39 @@ function renderPersona(user,coment){
                        "<div class='mt-1'> <img src='"+r.foto+"' class='img-perfilC mr-2'>" +     
                           r.nombreC +" / "+r.pais+"</div>"
                             );
+                 }
+        });
+}
+
+function Islogue(){
+var user = sessionStorage.getItem('usuario');
+if(user){
+    $("#bAdd").attr("onclick","addCarrito("+obtenerValorParametro('t')+")");
+    $("#bAdd").removeAttr("href",true);
+    $("#bAdd").attr("href","#");
+    
+}
+}
+
+
+function addCarrito(id){
+    var user = sessionStorage.getItem('usuario');
+    var parametros = {
+                "p": "addCarrito",
+                "tour": id,
+                "user": user.id
+        };
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                      r = JSON.parse(response);
+  
                  }
         });
 }
