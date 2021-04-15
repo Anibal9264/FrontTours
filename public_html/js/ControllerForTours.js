@@ -1,3 +1,82 @@
+function Menu(){
+    var menu = $("#menu");
+    menu.html("");
+    if (sessionStorage.getItem('usuario')) { 
+        menu.html("<li> <a href='index.html'>Inicio</a> </li>" +
+                "<li> <a href='carrito.html'>Carrito</a> </li>" +
+                "<li> <a href='index.html'>Reservas</a> </li>" +
+                "<li> <a href='#' id='salir'>Salir</a> </li>");
+    } else{
+        menu.html("<li> <a href='index.html'>Inicio</a> </li>" +
+                "<li> <div class='rd-navbar-aside-right'> <a class='button button-sm button-secondary button-nina' href='login.html'>Inicie sesion</a> </div> </li>");
+    }
+}
+
+function Login(){
+    var parametros = {
+                "p" : "Login",
+                "email": $("#email").val(),
+                "password" : $("#password").val()
+        };
+       
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                    if (response != "false"){
+                        r = JSON.parse(response);
+                        sessionStorage.setItem('usuario', JSON.stringify(r));
+                        window.location.href = "index.html";
+                    }
+                    else{
+                        alert("Datos incorrectos!");
+                    }
+                }
+        });
+        
+}
+
+function Registro(){
+    if ($("#nombre").val() !== ""){
+    var parametros = {
+                "p" : "Registro",
+                "nombre": $("#nombre").val(),
+                "apellidos": $("#apellidos").val(),
+                "id": $("#id").val(),
+                "fechanac": $("#fechanac").val(),
+                "email": $("#email").val(),
+                "password" : $("#password").val()
+        };
+       
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'POST',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                    if (response != "false"){
+                        r = JSON.parse(response);
+                        sessionStorage.setItem('usuario', JSON.stringify(r));
+                        window.location.href = "index.html";
+                    }
+                    else{
+                        alert("Error al registrar!");
+                    }
+                }
+        });
+    }
+}
+
+$('#salir').on("click", () => {
+     sessionStorage.removeItem('usuario');
+     window.location.href = "index.html";});
+
 function SearchTour(){
     var parametros = {
                 "p": "SearchTour",

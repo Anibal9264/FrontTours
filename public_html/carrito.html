@@ -2,7 +2,7 @@
 <html class="wide wow-animation" lang="es"> 
   <head>
     <!-- Site Title-->
-    <title>Inicio</title>
+    <title>Carrito</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,8 +19,8 @@
 		<![endif]--> 
   </head>
   <body>
-    
-   <!-- Page-->
+      
+    <!-- Page-->
      <!-- Page Header-->
       <header class="section page-header">
         <!-- RD Navbar-->
@@ -47,79 +47,34 @@
             </div>
           </nav>
         </div>
+        <br>
       </header>
-     <br>
-      <section class="section">
-        <div class="swiper-form-wrap">
-          <!-- Swiper-->
-          <div class="swiper-container swiper-slider swiper-slider_height-1 swiper-align-left swiper-align-left-custom context-dark bg-gray-darker" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide" data-slide-bg="images/temp/1.jpg"></div>
-              <div class="swiper-slide" data-slide-bg="images/temp/2.jpg"></div>
-              <div class="swiper-slide" data-slide-bg="images/temp/3.jpg"></div>
+     <section class="section">
+     <center>
+        <div class="card col-lg-6">
+            
+            <div class="card-header col-lg-12 col-md-auto">
+                <h4>Carrito</h4>
             </div>
-            <!-- Swiper controls-->
-            <div class="swiper-pagination-wrap">
-              <div class="container container-bigger">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="swiper-pagination"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="container container-bigger form-request-wrap form-request-wrap-modern">
-            <div class="row row-fix justify-content-sm-center justify-content-lg-end">
-              <div class="col-lg-5 col-xxl-4">
-                <div class="form-request form-request-modern bg-gray-lighter novi-background">
-                  <h4>Buscar Tour</h4>
-                  <!-- RD Mailform-->
-                  <form class="rd-mailform form-fix">
-                    <div class="row row-20 row-fix">
-                      <div class="col-sm-12">
-                        <input class="form-input" id="busqueda" name="busqueda" type="text">
-                        <label class="form-label" for="busqueda">Playa, Parque..</label>
-                      </div>
-                      
-                      <div class="col-sm-12 col-lg-6">
-                        <label class="form-label-outside">Ida</label>
-                        <div class="form-wrap form-wrap-validation">
-                          <!-- Select -->
-                          <input class="form-input" id="Ida" name="Ida" type="text" data-time-picker="date">
-                          <label class="form-label" for="Ida">Fecha</label>
-                          
-                        </div>
-                      </div>
-                        <div class="col-sm-12 col-lg-6">
-                        <label class="form-label-outside">Vuelta</label>
-                        <div class="form-wrap form-wrap-validation">
-                        
-                          <input class="form-input" id="Vuelta" name="Vuelta" type="text" data-time-picker="date">
-                          <label class="form-label" for="Vuelta">Fecha</label>
-                        
-                        </div>
-                      </div>
-                     
-                    </div>
-                    <div class="form-wrap form-button">
-                        <button class="button button-block button-secondary" id="buscar" onclick="SearchTour();" type="submit">Buscar</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            
+            <div class="card-body col-lg-12 col-md-auto">
 
-      <section class="section section-variant-1 bg-default novi-background bg-cover"> 
-        <div class="container container-wide">
-          
-          <div class="row row-50" id="tourviewgrup" >
-           
-          </div>
+            </div>
+            
+            <div class="card-footer col-lg-12 col-md-auto">
+               <div class="row">
+                <div class="col-sm-6 col-lg-6">
+                    <button class="button button-block button-secondary" id="reservar" onclick="Reservar();">Reservar</button>
+                </div>
+
+                <div class="col-sm-6 col-lg-6">
+                    <button class="button button-block button-secondary" id="limpiar" onclick="Limpiar();">Limpiar</button>
+                </div>
+                </div>
+            </div>
+            
         </div>
+      </center>
       </section>
       
       <!-- Footer Minimal-->
@@ -144,14 +99,11 @@
     
     
     <script>
-$( document ).ready(function() {
-     Menu();
-     SearchTour();
-     $('#salir').on("click", () => {
-     sessionStorage.removeItem('usuario');
-     window.location.href = "index.html";});
-});
-</script>
+        $( document ).ready(function() {
+            Menu();
+        });
+    </script>
     <!-- coded by barber-->
   </body>
 </html>
+

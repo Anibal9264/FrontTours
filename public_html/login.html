@@ -2,7 +2,7 @@
 <html class="wide wow-animation" lang="es"> 
   <head>
     <!-- Site Title-->
-    <title>Inicio</title>
+    <title>Iniciar sesion</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
   </head>
   <body>
     
-   <!-- Page-->
+    <!-- Page-->
      <!-- Page Header-->
       <header class="section page-header">
         <!-- RD Navbar-->
@@ -47,8 +47,8 @@
             </div>
           </nav>
         </div>
+        <br>
       </header>
-     <br>
       <section class="section">
         <div class="swiper-form-wrap">
           <!-- Swiper-->
@@ -73,51 +73,30 @@
             <div class="row row-fix justify-content-sm-center justify-content-lg-end">
               <div class="col-lg-5 col-xxl-4">
                 <div class="form-request form-request-modern bg-gray-lighter novi-background">
-                  <h4>Buscar Tour</h4>
+                  <h4>Inicio de sesion</h4>
                   <!-- RD Mailform-->
                   <form class="rd-mailform form-fix">
                     <div class="row row-20 row-fix">
-                      <div class="col-sm-12">
-                        <input class="form-input" id="busqueda" name="busqueda" type="text">
-                        <label class="form-label" for="busqueda">Playa, Parque..</label>
-                      </div>
-                      
-                      <div class="col-sm-12 col-lg-6">
-                        <label class="form-label-outside">Ida</label>
-                        <div class="form-wrap form-wrap-validation">
-                          <!-- Select -->
-                          <input class="form-input" id="Ida" name="Ida" type="text" data-time-picker="date">
-                          <label class="form-label" for="Ida">Fecha</label>
-                          
+                        <div class="col-sm-12">
+                            <input class="form-input" id="email" name="email" type="email">
+                            <label class="form-label" for="email">Email</label>
                         </div>
-                      </div>
-                        <div class="col-sm-12 col-lg-6">
-                        <label class="form-label-outside">Vuelta</label>
-                        <div class="form-wrap form-wrap-validation">
-                        
-                          <input class="form-input" id="Vuelta" name="Vuelta" type="text" data-time-picker="date">
-                          <label class="form-label" for="Vuelta">Fecha</label>
-                        
+                        <div class="col-sm-12">
+                            <input class="form-input" id="password" name="password" type="password">
+                            <label class="form-label" for="password">Contraseña</label>
                         </div>
-                      </div>
-                     
                     </div>
                     <div class="form-wrap form-button">
-                        <button class="button button-block button-secondary" id="buscar" onclick="SearchTour();" type="submit">Buscar</button>
+                        <button class="button button-block button-secondary" id="login" onclick="Login();" type="submit">Iniciar</button>
+                    </div>
+                      <br>
+                    <div style="text-align: right">
+                        <a href="registrarse.html"> Registrese aqui</a>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-variant-1 bg-default novi-background bg-cover"> 
-        <div class="container container-wide">
-          
-          <div class="row row-50" id="tourviewgrup" >
-           
           </div>
         </div>
       </section>
@@ -144,14 +123,10 @@
     
     
     <script>
-$( document ).ready(function() {
-     Menu();
-     SearchTour();
-     $('#salir').on("click", () => {
-     sessionStorage.removeItem('usuario');
-     window.location.href = "index.html";});
-});
-</script>
+        $( document ).ready(function() {
+            Menu();
+        });
+    </script>
     <!-- coded by barber-->
   </body>
 </html>
