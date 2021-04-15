@@ -213,6 +213,7 @@ function GetTour(){
                       renderDetallesTour(r.tour);
                       renderStras(r.stars);
                       renderDetallesAvansados(r.tour,r.incluye, r.noincluye,r.categoria);
+                      renderComentarios(r.resenias);
                  }
         });
         
@@ -355,4 +356,56 @@ function renderDetallesAvansados(tour,incluye,noincluye,categoria){
     $("#detAvanzado").html(html);
 }
              
+function renderComentarios(resenias){
+     var html = "";
+    resenias.forEach(res => 
+      html+=renderAllComent(res)
+     );
+      $("#listComents").html(html);
+     resenias.forEach(res => 
+      renderPersona(res.Usuario,res.id)
+     );
+      
+}
 
+function renderAllComent(res){
+          var html = "<div class='col-lg-8 mt-1'>"+
+               "<div class='card bg-light text-black shadow'>"+
+                  "<div class='card-body'>"+
+                      "<div class='row mt-0'>";
+                for (var i = 0; i < res.calificacion; i++) {
+                  html += "<i style='color:#ffa900;' >&#9733;</i>";
+                }
+               html +=  "</div>"+
+                      "<div class='row mt-0'>"+res.comentario+"</div>"+
+                      "<div id='coment"+res.id+"' class='row mt-0'></div>"+
+                   "</div>"+
+               "</div>"+
+                "</div>";
+                
+                return html;          
+}
+
+
+function renderPersona(user,coment){
+    var parametros = {
+                "p": "GetUser",
+                "id": user,       
+        };
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                      r = JSON.parse(response);
+                      $("#coment"+coment).html(
+                       "<div class='mt-1'> <img src='"+r.foto+"' class='img-perfilC mr-2'>" +     
+                          r.nombreC +" / "+r.pais+"</div>"
+                            );
+                 }
+        });
+}

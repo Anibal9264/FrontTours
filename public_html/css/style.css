@@ -18087,3 +18087,9 @@ html[dir='rtl'] .lg-css3.lg-slide.lg-use-css3 .lg-item.lg-current {
     font-family: "Constantia", serif;
     color: black;
 }
+
+.img-perfilC{
+    width:30px;
+    height:30px;
+    border-radius:15px;
+}
