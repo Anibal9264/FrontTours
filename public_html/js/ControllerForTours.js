@@ -211,6 +211,8 @@ function GetTour(){
                       r = JSON.parse(response);
                       renderImagenesTour(r.imgs);
                       renderDetallesTour(r.tour);
+                      renderStras(r.stars);
+                      renderDetallesAvansados(r.tour,r.incluye, r.noincluye,r.categoria);
                  }
         });
         
@@ -260,3 +262,97 @@ var sPaginaURL = window.location.search.substring(1);
   }
  return null;
 }
+
+
+function renderDetallesTour(tour){
+    $("#tourTitle").html(tour.nombre);
+    $("#tourTitleh4").html(tour.nombre);
+    $("#detalle").html(tour.descripcion);
+}
+
+function renderStras(r){
+    calificacion = r.stars/r.cantidad; 
+                var cod = "";
+                var i = 0; 
+                for (i = 1; i < calificacion; i++) {
+                  cod += "<i style='color:#ffa900;' >&#9733;</i>";
+                }
+                i--;
+                cod += "<span class='ml-1' >"+i+"/5</span>";
+                
+                cod += "<span class='ml-1' >Opiniones: "+r.cantidad+"</span>";
+                $("#star").html(cod);
+                  
+}
+
+
+function renderDetallesAvansados(tour,incluye,noincluye,categoria){
+    var html = " <div class='col-lg-6 mb-2'>"+
+               " <div class='card bg-light text-black shadow'>"+
+                  " <div class='card-body'>"+
+                       " <span class='icon mr-1'>"+
+                       "    <i class='fas fa-clock-o'></i>"+
+                      "   </span>"+
+                      " <span class='text text-bold'>Duración: "+tour.duracion+" horas</span>"+
+                   "  </div>"+
+               " </div>"+
+            "</div>";
+    
+       html += " <div class='col-lg-6 mb-2'>"+
+               " <div class='card bg-light text-black shadow'>"+
+                  " <div class='card-body'>"+
+                       " <span class='icon mr-1'>"+
+                       "    <i class='fas fa-ticket'></i>"+
+                      "   </span>"+
+                      " <span class='text text-bold'>Cupos disponibles: "+tour.cupo+"</span>"+
+                   "  </div>"+
+               " </div>"+
+            "</div>";
+    
+    html += " <div class='col-lg-6 mb-2'>"+
+               " <div class='card bg-light text-black shadow'>"+
+                  " <div class='card-body'>"+
+                       " <span class='icon mr-1'>"+
+                       "    <i class='fas fa-ticket'></i>"+
+                      "   </span>"+
+                      " <span class='text text-bold'>Categoria: "+categoria.nombre+"</span>"+
+                      " <br> <span class='text'>"+categoria.descripcion+"</span>"+
+                   "  </div>"+
+               " </div>"+
+            "</div>";
+    
+     html += " <div class='col-lg-6 mb-2'>"+
+               " <div class='card bg-light text-black shadow'>"+
+                  " <div class='card-body'>"+
+                       " <span class='icon mr-1'>"+
+                       "    <i class='fas fa-ticket'></i>"+
+                      "   </span>"+
+                      " <span class='text text-bold'>Incluye:</span>";
+          incluye.forEach(inc => 
+           html += " <br> <span class='text'>"+inc.nombre+": "+inc.descripcion+"</span>"
+          );
+                     
+       html += "  </div>"+
+               " </div>"+
+     "</div>";
+     
+      html += " <div class='col-lg-6 mb-2'>"+
+               " <div class='card bg-light text-black shadow'>"+
+                  " <div class='card-body'>"+
+                       " <span class='icon mr-1'>"+
+                       "    <i class='fas fa-ticket'></i>"+
+                      "   </span>"+
+                      " <span class='text text-bold'>No Incluye:</span>";
+          noincluye.forEach(ninc => 
+           html += " <br> <span class='text'>"+ninc.nombre+": "+ninc.descripcion+"</span>"
+          );
+                     
+       html += "  </div>"+
+               " </div>"+
+     "</div>";
+    
+    
+    $("#detAvanzado").html(html);
+}
+             
+
