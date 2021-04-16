@@ -133,6 +133,7 @@ function RenderGourpTours(r){
 function GetDatosTorP(t){
     GetImgPTour(t.id);
     GetStarsPTour(t.id);
+    isFavorite(t.id);
 }
 
 function GetImgPTour(id){
@@ -152,12 +153,11 @@ function GetImgPTour(id){
                 success:  function (response) {
                       r = JSON.parse(response);
                 $("#tid"+id+"").html("<figure class='event-default-image'>"+
-                        "<a href='#'><i style='position: absolute; right: 15px; bottom: 160px;' class='far fa-heart'></i></a>"+
+                        "<a id='isF"+id+"' href='#'></a>"+
                         "<img class='img-mod1' src='"+r.img+"'/>"+
                         "</figure>");
              
-                      
-                }
+                      }
         });
         
 }
@@ -183,7 +183,7 @@ function GetStarsPTour(id){
                 for (var i = 1; i < calificacion; i++) {
                   cod += "<i class='float-right' style='color:#ffa900;' >&#9733;</i>";
                 }
-                $("#star"+id+"").html(cod);
+                $("#star"+id).html(cod);
                  
                 }
         });
@@ -195,6 +195,37 @@ $("#buscar").on("click", function(){
         scrollTop: posicion
     }, 2000); 
 });
+
+
+
+function isFavorite(tour){
+    var user = JSON.parse(sessionStorage.getItem('usuario'));
+    var parametros = {
+                "p" : "isFavorite",
+                "tour" : tour,
+                "user" : user.id
+        };
+        
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                r = JSON.parse(response);
+                var html = "";
+                if(r){
+                 html += "<i style='position: absolute; right: 15px; bottom: 160px;' class='far fa-heart'></i> ";
+                }
+        
+                $("#isF"+tour).html(html);
+                 
+                }
+        });
+}
 
 
 function GetTour(){
