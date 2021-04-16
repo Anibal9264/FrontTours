@@ -4,7 +4,7 @@ function Menu(){
     if (sessionStorage.getItem('usuario')) { 
         menu.html("<li> <a href='index.html'>Inicio</a> </li>" +
                 "<li> <a href='carrito.html'>Carrito</a> </li>" +
-                "<li> <a href='index.html'>Reservas</a> </li>" +
+                "<li> <a href='reservaciones.html'>Reservas</a> </li>" +
                 "<li> <a href='#' id='salir'>Salir</a> </li>");
     } else{
         menu.html("<li> <a href='index.html'>Inicio</a> </li>" +
@@ -500,6 +500,31 @@ function OpcionCart(){
         });
 }
 
+function OpcionRes(){
+    var user = $.parseJSON(sessionStorage.getItem('usuario'));
+    var parametros = {
+                "p": "opcionRes",
+                "user": user.id
+        };
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                    r = JSON.parse(response);
+                    renderOpcionRes(r);
+                }
+        });
+}
+
+function renderOpcionRes(r){
+    r.forEach(t => getTourOpcion(t.Tour, t.cantidad));
+}
+
 function renderOpcionCart(r){
     r.forEach(t => getTourOpcion(t.Tour, t.cantidad));
 }
@@ -540,4 +565,80 @@ function getTourOpcion(tour, cantidad){
         });
      
     
+}
+
+function getTourOpcion(tour, cantidad){
+    var parametros = {
+                "p": "GetTour",
+                "id": tour     
+        };
+            
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                      r = JSON.parse(response);
+                      var html    = "<li style='text-align: left'>"+
+                      "<div> <h4> "+ r.tour.nombre + "</h4> </div>" +
+                      "<div> "+ r.tour.descripcion +" </div>" +
+                      "<div class='row'>" + 
+                      "<div class='col-sm-6 col-lg-6'>" +
+                      "<span class='icon mr-1'>"+
+                      "<i class='fas fa-clock-o'></i>"+
+                      "</span>"+
+                      "<span class='text text-bold'>Duración: "+r.tour.duracion+" horas" + 
+                      "</span>" +
+                      "</div" +
+                      "<div class='col-sm-6 col-lg-6'>" +
+                      "</div" +
+                      "</div>" +
+                      "</li>";
+      
+                    $("#opcionRes").html(html);
+                }
+        });
+     
+    
+}
+
+function Limpiar(){
+    var user = $.parseJSON(sessionStorage.getItem('usuario'));
+    var parametros = {
+                "p": "Limpiar",
+                "user": user.id  
+        };
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'POST',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                    window.location = "carrito.html";
+                }
+        });
+}
+
+function Reservar(){
+    var user = $.parseJSON(sessionStorage.getItem('usuario'));
+    var parametros = {
+                "p": "Reservar",
+                "user": user.id  
+        };
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'POST',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                    window.location = "reservaciones.html";
+                }
+        });
 }
