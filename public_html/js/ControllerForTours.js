@@ -427,10 +427,31 @@ if(user){
 
 
 function addCarrito(id){
-    var user = sessionStorage.getItem('usuario');
+    var user = $.parseJSON(sessionStorage.getItem('usuario'));
     var parametros = {
                 "p": "addCarrito",
                 "tour": id,
+                "user": user.id
+        };
+        
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'POST',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                    $("#agregar").removeAttr("<a>", true);
+                    $("#agregar").html("<div class='button button-sm button-secondary button-nina'>Agregado</div>");
+                }
+        });
+}
+
+function OpcionCart(){
+    var user = $.parseJSON(sessionStorage.getItem('usuario'));
+    var parametros = {
+                "p": "opcionCart",
                 "user": user.id
         };
         
@@ -442,8 +463,50 @@ function addCarrito(id){
                         
                 },
                 success:  function (response) {
-                      r = JSON.parse(response);
-  
-                 }
+                    r = JSON.parse(response);
+                    renderOpcionCart(r);
+                }
         });
+}
+
+function renderOpcionCart(r){
+    r.forEach(t => getTourOpcion(t.Tour, t.cantidad));
+}
+
+function getTourOpcion(tour, cantidad){
+    var parametros = {
+                "p": "GetTour",
+                "id": tour     
+        };
+            
+        $.ajax({
+                data:  parametros,
+                url:   'http://localhost/Tours/',
+                type:  'GET',
+                beforeSend: function () {
+                        
+                },
+                success:  function (response) {
+                      r = JSON.parse(response);
+                      var html    = "<li style='text-align: left'>"+
+                      "<div> <h4> "+ r.tour.nombre + "</h4> </div>" +
+                      "<div> "+ r.tour.descripcion +" </div>" +
+                      "<div class='row'>" + 
+                      "<div class='col-sm-6 col-lg-6'>" +
+                      "<span class='icon mr-1'>"+
+                      "<i class='fas fa-clock-o'></i>"+
+                      "</span>"+
+                      "<span class='text text-bold'>Duración: "+r.tour.duracion+" horas" + 
+                      "</span>" +
+                      "</div" +
+                      "<div class='col-sm-6 col-lg-6'>" +
+                      "</div" +
+                      "</div>" +
+                      "</li>";
+      
+                    $("#opcionCart").html(html);
+                }
+        });
+     
+    
 }
