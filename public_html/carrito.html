@@ -106,6 +106,9 @@
         $( document ).ready(function() {
             Menu();
             OpcionCart();
+            $('#salir').on("click", () => {
+            sessionStorage.removeItem('usuario');
+            window.location.href = "index.html";});
         });
     </script>
     <!-- coded by barber-->

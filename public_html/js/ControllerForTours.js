@@ -522,14 +522,14 @@ function OpcionRes(){
 }
 
 function renderOpcionRes(r){
-    r.forEach(t => getTourOpcion(t.Tour, t.cantidad));
+    r.forEach(t => getTourOpcionRes(t.Tour));
 }
 
 function renderOpcionCart(r){
-    r.forEach(t => getTourOpcion(t.Tour, t.cantidad));
+    r.forEach(t => getTourOpcion(t.Tour));
 }
 
-function getTourOpcion(tour, cantidad){
+function getTourOpcion(tour){
     var parametros = {
                 "p": "GetTour",
                 "id": tour     
@@ -547,27 +547,22 @@ function getTourOpcion(tour, cantidad){
                       var html    = "<li style='text-align: left'>"+
                       "<div> <h4> "+ r.tour.nombre + "</h4> </div>" +
                       "<div> "+ r.tour.descripcion +" </div>" +
-                      "<div class='row'>" + 
-                      "<div class='col-sm-6 col-lg-6'>" +
+                      "<div>" +
                       "<span class='icon mr-1'>"+
                       "<i class='fas fa-clock-o'></i>"+
                       "</span>"+
                       "<span class='text text-bold'>Duración: "+r.tour.duracion+" horas" + 
                       "</span>" +
                       "</div" +
-                      "<div class='col-sm-6 col-lg-6'>" +
-                      "</div" +
-                      "</div>" +
-                      "</li>";
+                      "<div style='text-align: right'> ₡ " + r.tour.precio + "</div> " +
+                      "</li> <br>";
       
-                    $("#opcionCart").html(html);
+                    $("#opcionCart").append(html);
                 }
         });
-     
-    
 }
 
-function getTourOpcion(tour, cantidad){
+function getTourOpcionRes(tour){
     var parametros = {
                 "p": "GetTour",
                 "id": tour     
@@ -582,24 +577,22 @@ function getTourOpcion(tour, cantidad){
                 },
                 success:  function (response) {
                       r = JSON.parse(response);
-                      var html    = "<li style='text-align: left'>"+
+                      var html = "<li style='text-align: left'>"+
                       "<div> <h4> "+ r.tour.nombre + "</h4> </div>" +
                       "<div> "+ r.tour.descripcion +" </div>" +
-                      "<div class='row'>" + 
-                      "<div class='col-sm-6 col-lg-6'>" +
+                      "<div>" +
                       "<span class='icon mr-1'>"+
                       "<i class='fas fa-clock-o'></i>"+
                       "</span>"+
                       "<span class='text text-bold'>Duración: "+r.tour.duracion+" horas" + 
                       "</span>" +
                       "</div" +
-                      "<div class='col-sm-6 col-lg-6'>" +
-                      "</div" +
-                      "</div>" +
-                      "</li>";
-      
-                    $("#opcionRes").html(html);
+                      "<div style='text-align: right'> ₡ " + r.tour.precio + "</div> " +
+                      "</li> <br>";
+              
+                    $("#opcionRes").append(html);
                 }
+            
         });
      
     
